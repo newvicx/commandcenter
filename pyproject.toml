@@ -59,4 +59,4 @@ text = "\n## Release Information\n\n"
 path = "CHANGELOG.md"
 
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
-text = "\n---\n\n[Full changelog](https://pig.abbvienet.com/newvicx/commandcenter/blob/master/CHANGELOG.md)\n"
+text = "\n---\n\n[Full changelog](https://github.com/newvicx/commandcenter/blob/master/CHANGELOG.md)\n"
