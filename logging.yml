@@ -1,0 +1,103 @@
+# commandcenter logging config file
+
+# You can provide your own config file by overriding the the LOGGING_CONFIG_PATH
+# env variable
+
+version: 1
+disable_existing_loggers: False
+
+formatters:
+    simple:
+        format: "%(asctime)s.%(msecs)03d | %(message)s"
+        datefmt: "%H:%M:%S"
+
+    standard:
+        (): hyprxa.logging.StandardFormatter
+
+
+filters:
+    correlation_id:
+        (): asgi_correlation_id.CorrelationIdFilter
+        uuid_length: 32
+    ip_address:
+        (): hyprxa.logging.IPAddressFilter
+    username:
+        (): hyprxa.logging.UserFilter
+    host:
+        (): hyprxa.logging.HostFilter
+
+handlers:
+    
+    console:
+        class: logging.StreamHandler
+        formatter: simple
+
+    mongo:
+        class: hyprxa.logging.MongoLogHandler
+        connection_uri: mongodb://localhost:27017/
+        database_name: commandcenter
+        collection_name: logs
+        flush_interval: 10
+        flush_level: ERROR
+        buffer_size: 100
+        max_retries: 3
+        expire_after: 2592000
+        formatter: standard
+        filters: [correlation_id, ip_address, username, host]
+
+loggers:
+    hyprxa.api:
+        level: DEBUG
+        
+    hyprxa.auth:
+        level: WARNING
+    
+    hyprxa.base:
+        level: DEBUG
+
+    hyprxa.caching:
+        level: WARNING
+
+    hyprxa.client:
+        level: WARNING
+        handlers: [console]
+
+    hyprxa.events:
+        level: INFO
+
+    hyprxa.timeseries:
+        level: DEBUG
+
+    hyprxa.util:
+        level: WARNING
+
+    hyprxa.exceptions:
+        level: ERROR
+
+    commandcenter.auth:
+        level: WARNING
+
+    commandcenter.dialout:
+        level: WARNING
+
+    commandcenter.api:
+        level: WARNING
+
+    commandcenter.sources:
+        level: INFO
+
+    commandcenter.dialout:
+        level: DEBUG
+
+    uvicorn:
+        level: INFO
+        handlers: [console]
+
+    fastapi:
+        level: INFO
+        handlers: [console]
+
+# The root logger: any logger without propagation disabled sends to here as well
+root:
+    level: WARNING
+    handlers: [mongo]
