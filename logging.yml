@@ -47,13 +47,13 @@ handlers:
 
 loggers:
     hyprxa.api:
-        level: DEBUG
+        level: INFO
         
     hyprxa.auth:
         level: WARNING
     
     hyprxa.base:
-        level: DEBUG
+        level: INFO
 
     hyprxa.caching:
         level: WARNING
@@ -66,7 +66,7 @@ loggers:
         level: INFO
 
     hyprxa.timeseries:
-        level: DEBUG
+        level: INFO
 
     hyprxa.util:
         level: WARNING
@@ -87,7 +87,7 @@ loggers:
         level: INFO
 
     commandcenter.dialout:
-        level: DEBUG
+        level: INFO
 
     uvicorn:
         level: INFO

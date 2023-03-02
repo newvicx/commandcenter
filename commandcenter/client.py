@@ -67,7 +67,7 @@ class CommandCenterClient(HyprxaClient):
         params: QueryParams | None = None,
     ) -> BaseModel:
         """Handle PUT request and return the response model."""
-        response = self._client.post(path, params=params, json=json)
+        response = self._client.put(path, params=params, json=json)
         content = response.read()
         data = orjson.loads(content)
         return response_model(**data)
@@ -127,7 +127,7 @@ class CommandCenterAsyncClient(HyprxaAsyncClient):
         params: QueryParams | None = None,
     ) -> BaseModel:
         """Handle PUT request and return the response model."""
-        response = await self._client.post(path, params=params, json=json)
+        response = await self._client.put(path, params=params, json=json)
         content = await response.aread()
         data = orjson.loads(content)
         return response_model(**data)
