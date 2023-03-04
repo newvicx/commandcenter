@@ -31,7 +31,7 @@ def build_url(web_id_type: WebIdType, subscriptions: Set[PIWebSubscription]) -> 
     return (
         "/piwebapi/streamsets/channel?webId="
         f"{'&webId='.join([subscription.web_id for subscription in subscriptions])}"
-        f"&webIdType={web_id_type.value}&includeInitialValues=true"
+        f"&webIdType={web_id_type.value}"
     )
 
 
